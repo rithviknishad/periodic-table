@@ -12,11 +12,9 @@ Pending updates:
 ==========================================================
 */
 
-
-void main() { }
+void main() {}
 // hahahah!! YES! main() is empty. You think it won't run?
 // I'm better than you!
-
 
 /////   STANDARD LIBRARIES   /////
 #include <iostream.h>
@@ -32,7 +30,6 @@ void main() { }
 #include <stddef.h>
 #include <math.h>
 
-
 /////    CUSTOM LIBRARIES    /////
 #include "P_TABLE\\LIB\\ELEMENT.H"
 #include "P_TABLE\\LIB\\ELM_FILE.H"
@@ -46,31 +43,15 @@ void main() { }
 #include "P_TABLE\\LIB\\CDEF.H"
 #include "P_TABLE\\LIB\\QTYDEF.H"
 
-
-
-#define GRAPHICS_PATH 				"C:\\TURBOC3\\BGI\\"
-#define TOTAL_NUMBER_OF_ELEMENTS 	118
-#define DEVELOPMENT_MODE 			1
-
-
+#define GRAPHICS_PATH "C:\\TURBOC3\\BGI\\"
+#define TOTAL_NUMBER_OF_ELEMENTS 118
+#define DEVELOPMENT_MODE 1
 
 void Close();
 
-
-
 byte itr_1, itr_2; // Global Shared Iterator (RESERVED) (shared for low runtime memory consumption)
 
-
 ElementButton ElementButtons[TOTAL_NUMBER_OF_ELEMENTS];
-
-
-
-
-
-
-
-
-
 
 int InitializeGraphicsAndCursor()
 {
@@ -98,17 +79,9 @@ int InitializeGraphicsAndCursor()
 	return errorcode;
 }
 
-
-
-
-
-
-
-
-
-void Display_LoginScreen() 
+void Display_LoginScreen()
 {
-	redo:
+redo:
 	setcolor(GREEN);
 	setbkcolor(0x00);
 
@@ -119,18 +92,18 @@ void Display_LoginScreen()
 	rectangle((getmaxx() / 2) - 250, (getmaxy() / 2) - 150, (getmaxx() / 2) + 250, (getmaxy() / 2) + 150);
 
 	settextjustify(CENTER_TEXT, CENTER_TEXT);
-	settextstyle(3, HORIZ_DIR,2);
+	settextstyle(3, HORIZ_DIR, 2);
 	setcolor(8);
 	setbkcolor(WHITE);
-	outtextxy((getmaxx()/2)+10, (getmaxy()/2)-100, "P E R I O D I C   T A B L E");
+	outtextxy((getmaxx() / 2) + 10, (getmaxy() / 2) - 100, "P E R I O D I C   T A B L E");
 
 	settextjustify(LEFT_TEXT, LEFT_TEXT);
 	settextstyle(0, HORIZ_DIR, 1);
 
-	outtextxy((getmaxx()/2)-180, (getmaxy()/2)-34, " USERNAME : ");
-	outtextxy((getmaxx()/2)-180, (getmaxy()/2)-2, " PASSWORD : ");
+	outtextxy((getmaxx() / 2) - 180, (getmaxy() / 2) - 34, " USERNAME : ");
+	outtextxy((getmaxx() / 2) - 180, (getmaxy() / 2) - 2, " PASSWORD : ");
 
-	char un[] = "admin", pw[] = "admin", _un[25] = "",_pw[25] = "";
+	char un[] = "admin", pw[] = "admin", _un[25] = "", _pw[25] = "";
 
 	gotoxy(32, 13);
 	gets(_un);
@@ -139,12 +112,10 @@ void Display_LoginScreen()
 	gets(_pw);
 
 	if (!strcmpi(un, _un) && !strcmpi(pw, _pw))
-		outtextxy((getmaxx()/2)+10, (getmaxy()/2)+100, "Logging in...");
+		outtextxy((getmaxx() / 2) + 10, (getmaxy() / 2) + 100, "Logging in...");
 	else
 		goto redo;
-
 }
-
 
 Button ExitButton;
 Button BackButton;
@@ -152,14 +123,11 @@ Button BackButton;
 class Screens
 {
 
-	
-
 	static void DrawDefaultLayout(byte bkcolor, bool drawBackButton, bool drawExitButton, bool drawTitleBar, byte titleBarColor, byte titleTextColor);
 
 	static void _draw_ViewElement_DefaultScreen();
 
-	public:
-
+public:
 	static void Initialize();
 
 	static void Logo();
@@ -175,19 +143,13 @@ class Screens
 	static void About();
 
 	static void ResetElements();
-
-
 };
 
-
 void Screens::Initialize()
-{	
+{
 	ExitButton = Button(Point2D(625, 15), Size2D(30, 30), "X", LIGHTRED, RED, RED, LIGHTRED, RED, WHITE, Close);
 	BackButton = Button(Point2D(15, 15), Size2D(30, 30), "<", WHITE, LIGHTGRAY, BLUE, BLUE, BLUE, BLUE, Home);
 }
-
-
-
 
 void Screens::Logo()
 {
@@ -201,17 +163,11 @@ void Screens::Logo()
 	Mouse::Show();
 }
 
-
-
 void Operation_ResetElements()
 {
 	Files::ResetFactoryDefaults();
 	Screens::Home();
 }
-
-
-
-
 
 void Screens::DrawDefaultLayout(byte bkcolor, bool drawBackButton = true, byte drawExitButton = true, bool drawTitleBar = true, byte titleBarColor = LIGHTBLUE, byte titleTextColor = WHITE)
 {
@@ -230,7 +186,9 @@ void Screens::DrawDefaultLayout(byte bkcolor, bool drawBackButton = true, byte d
 		outtextxy(BackButton.B.X + 8, ((BackButton.A.Y + BackButton.B.Y) / 2) - 5, "P E R I O D I C   T A B L E");
 	}
 
-	while (Mouse::Refresh()) {} // to prevent clicking buttons of next screen accidentaly
+	while (Mouse::Refresh())
+	{
+	} // to prevent clicking buttons of next screen accidentaly
 
 	if (drawExitButton)
 		ExitButton.Draw(false);
@@ -241,19 +199,14 @@ void Screens::DrawDefaultLayout(byte bkcolor, bool drawBackButton = true, byte d
 	Mouse::Show();
 }
 
-
-
-
-
-
 void Screens::Home()
 {
 	DrawDefaultLayout(BLACK, 0, 0);
 
-	static Button ShowTableButton 		= Button(Point2D((getmaxx() / 2), (getmaxy() / 2) - 60), Size2D(160, 25), 	"VIEW TABLE", 		DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::Table);
-	static Button FactoryResetButton	= Button(Point2D((getmaxx() / 2), (getmaxy() / 2) - 20), Size2D(160, 25), 	"FACTORY RESET", 	DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::ResetElements);
-	static Button AboutButton			= Button(Point2D((getmaxx() / 2), (getmaxy() / 2) + 20), Size2D(160, 25), 	"ABOUT", 			DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::About);
-	static Button _ExitButton		 	= Button(Point2D((getmaxx() / 2), (getmaxy() / 2) + 60), Size2D(160, 25), 	"EXIT", 			RED, RED, RED, RED, WHITE, WHITE,     ExitButton.ClickEvent);
+	static Button ShowTableButton = Button(Point2D((getmaxx() / 2), (getmaxy() / 2) - 60), Size2D(160, 25), "VIEW TABLE", DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::Table);
+	static Button FactoryResetButton = Button(Point2D((getmaxx() / 2), (getmaxy() / 2) - 20), Size2D(160, 25), "FACTORY RESET", DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::ResetElements);
+	static Button AboutButton = Button(Point2D((getmaxx() / 2), (getmaxy() / 2) + 20), Size2D(160, 25), "ABOUT", DARKGRAY, WHITE, DARKGRAY, BLUE, WHITE, BLUE, Screens::About);
+	static Button _ExitButton = Button(Point2D((getmaxx() / 2), (getmaxy() / 2) + 60), Size2D(160, 25), "EXIT", RED, RED, RED, RED, WHITE, WHITE, ExitButton.ClickEvent);
 
 	Mouse::Hide();
 
@@ -273,9 +226,6 @@ void Screens::Home()
 	}
 }
 
-
-
-
 void Screens::Table()
 {
 	DrawDefaultLayout(LIGHTGRAY);
@@ -294,15 +244,13 @@ void Screens::Table()
 		Mouse::Refresh();
 
 		for (itr_1 = 0; itr_1 < TOTAL_NUMBER_OF_ELEMENTS; ++itr_1)
-			if (ElementButtons[itr_1].ElementClicked());
+			if (ElementButtons[itr_1].ElementClicked())
+				;
 
-		if (ExitButton.MouseClicked() || BackButton.MouseClicked());
+		if (ExitButton.MouseClicked() || BackButton.MouseClicked())
+			;
 	}
 }
-
-
-
-
 
 #define NO_VALUE "---"
 
@@ -310,9 +258,7 @@ char buff_eba[64];
 char buff_ebx[40];
 const int __eax = 170, __eby = 158, __vApart = 16;
 
-
 Element element;
-
 
 void Screens::_draw_ViewElement_DefaultScreen()
 {
@@ -344,22 +290,15 @@ void Screens::_draw_ViewElement_DefaultScreen()
 	outtextxy(((getmaxx() / 3) * 2) - 110, __eby + (__vApart * 13) - 5, "Covalent Radius:");
 	outtextxy(((getmaxx() / 3) * 3) - 110, __eby + (__vApart * 13) - 5, "Van der Waals Radius:");
 
-
 	settextjustify(RIGHT_TEXT, CENTER_TEXT);
 
 	outtextxy(__eax, __eby + (__vApart * 16), "Oxidation States:  ");
 	outtextxy(__eax, __eby + (__vApart * 17), "Half Life:  ");
 	outtextxy(__eax, __eby + (__vApart * 18), "Lifetime:  ");
-
 }
 
-
-
-
-
-
 void Screens::ViewElement(ElementButton *sender)
-{	
+{
 	DrawDefaultLayout(LIGHTGRAY, 0);
 
 	BackButton.ClickEvent = Table;
@@ -368,94 +307,93 @@ void Screens::ViewElement(ElementButton *sender)
 	static Button RadioactiveFilterButton = Button("RADIOACTIVE", YELLOW, DARKGRAY);
 
 	Mouse::Hide();
-	
+
 	_draw_ViewElement_DefaultScreen();
 
-	element = Files::GetElement(sender -> Z);
+	element = Files::GetElement(sender->Z);
 
 	// draw element specific thematic stuff
-	GraphicsEngine::DrawLine(Point2D(12, 137), Point2D(getmaxx() - 12, 137), 2, sender -> BorderColor);
+	GraphicsEngine::DrawLine(Point2D(12, 137), Point2D(getmaxx() - 12, 137), 2, sender->BorderColor);
 
-	CATFilterButton.BackColor = sender -> BorderColor;
-	CATFilterButton.BorderColor = sender -> BorderColor;
+	CATFilterButton.BackColor = sender->BorderColor;
+	CATFilterButton.BorderColor = sender->BorderColor;
 	CATFilterButton.Enabled = false;
 
 	static Point2D ___CatFCA = Point2D(12, 54);
-	
-	switch ( element.Category )
+
+	switch (element.Category)
 	{
-		case Element::Other_NonMetals:
-			CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
-			CATFilterButton.ForeColor = DARKGRAY;
-			CATFilterButton.SetText("OTHER NONMETALS");
-			break;
+	case Element::Other_NonMetals:
+		CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
+		CATFilterButton.ForeColor = DARKGRAY;
+		CATFilterButton.SetText("OTHER NONMETALS");
+		break;
 
-		case Element::NobleGases:
-			CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("NOBLE GASES");
-			break;
-		
-		case Element::AlkaliMetals:
-			CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("ALKALI METALS");
-			break;
+	case Element::NobleGases:
+		CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("NOBLE GASES");
+		break;
 
-		case Element::AlkalineEarthMetals:
-			CATFilterButton.SetPositionAndSize(Size2D(200, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("ALKALINE EARTH METALS");
-			break;
+	case Element::AlkaliMetals:
+		CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("ALKALI METALS");
+		break;
 
-		case Element::TransitionMetals:
-			CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("TRANSITION METALS");
-			break;
+	case Element::AlkalineEarthMetals:
+		CATFilterButton.SetPositionAndSize(Size2D(200, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("ALKALINE EARTH METALS");
+		break;
 
-		case Element::PostTransitionMetals:
-			CATFilterButton.SetPositionAndSize(Size2D(200, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("POST-TRANSITION METALS");
-			break;
+	case Element::TransitionMetals:
+		CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("TRANSITION METALS");
+		break;
 
-		case Element::Metalloids:
-			CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
-			CATFilterButton.ForeColor = DARKGRAY;
-			CATFilterButton.SetText("METALLOIDS");
-			break;
+	case Element::PostTransitionMetals:
+		CATFilterButton.SetPositionAndSize(Size2D(200, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("POST-TRANSITION METALS");
+		break;
 
-		case Element::Halogens:
-			CATFilterButton.SetPositionAndSize(Size2D(100, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("HALOGENS");
-			break;
+	case Element::Metalloids:
+		CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
+		CATFilterButton.ForeColor = DARKGRAY;
+		CATFilterButton.SetText("METALLOIDS");
+		break;
 
-		case Element::Lanthanoids:
-			CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("LANTHANOIDS");
-			break;
+	case Element::Halogens:
+		CATFilterButton.SetPositionAndSize(Size2D(100, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("HALOGENS");
+		break;
 
-		case Element::Actinoids:
-			CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
-			CATFilterButton.ForeColor = WHITE;
-			CATFilterButton.SetText("ACTINOIDS");
-			break;
+	case Element::Lanthanoids:
+		CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("LANTHANOIDS");
+		break;
 
-		case Element::SuperActinoid:
-			CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
-			CATFilterButton.ForeColor = DARKGRAY;
-			CATFilterButton.SetText("SUPER-ACTINOIDS");
-			break;
+	case Element::Actinoids:
+		CATFilterButton.SetPositionAndSize(Size2D(120, 24), ___CatFCA);
+		CATFilterButton.ForeColor = WHITE;
+		CATFilterButton.SetText("ACTINOIDS");
+		break;
 
-		default:
-			CATFilterButton.SetPositionAndSize(Size2D(100, 24), ___CatFCA);
-			CATFilterButton.ForeColor = DARKGRAY;
-			CATFilterButton.SetText("UNKNOWN");
-			break;
+	case Element::SuperActinoid:
+		CATFilterButton.SetPositionAndSize(Size2D(160, 24), ___CatFCA);
+		CATFilterButton.ForeColor = DARKGRAY;
+		CATFilterButton.SetText("SUPER-ACTINOIDS");
+		break;
 
+	default:
+		CATFilterButton.SetPositionAndSize(Size2D(100, 24), ___CatFCA);
+		CATFilterButton.ForeColor = DARKGRAY;
+		CATFilterButton.SetText("UNKNOWN");
+		break;
 	}
 
 	CATFilterButton.Draw(false);
@@ -477,7 +415,7 @@ void Screens::ViewElement(ElementButton *sender)
 	// element name
 
 	setcolor(CATFilterButton.BackColor);
-	
+
 	for (itr_1 = 0; itr_1 <= 13; itr_1++)
 		circle(110, 108, itr_1);
 
@@ -501,41 +439,34 @@ void Screens::ViewElement(ElementButton *sender)
 	gcvt(element.AtomicWeight, 5, buff_eba);
 	strcat(buff_eba, " (g/mol)");
 	outtextxy(136, 120, buff_eba);
-	
 
 	// --------------------------------------------------------------------------
 	// values
 	setcolor(WHITE);
 
+	static PropertyButton LatinName(Point2D(__eax, __eby + (__vApart * 0)), Size2D(440, __vApart - 2));
+	static PropertyButton YearDiscovered(Point2D(__eax, __eby + (__vApart * 1)), Size2D(440, __vApart - 2));
+	static PropertyButton DiscoveredBy(Point2D(__eax, __eby + (__vApart * 2)), Size2D(440, __vApart - 2));
+	static PropertyButton ElectronConfig(Point2D(__eax, __eby + (__vApart * 3)), Size2D(440, __vApart - 2), Screens::ViewAtomModel);
+	static PropertyButton AtomicWeight(Point2D(__eax, __eby + (__vApart * 4)), Size2D(440, __vApart - 2));
+	static PropertyButton Density(Point2D(__eax, __eby + (__vApart * 5)), Size2D(440, __vApart - 2));
+	static PropertyButton Phase(Point2D(__eax, __eby + (__vApart * 6)), Size2D(440, __vApart - 2));
+	static PropertyButton MeltingPoint(Point2D(__eax, __eby + (__vApart * 7)), Size2D(440, __vApart - 2));
+	static PropertyButton BoilingPoint(Point2D(__eax, __eby + (__vApart * 8)), Size2D(440, __vApart - 2));
 
-	static PropertyButton LatinName			(Point2D(__eax, __eby + (__vApart * 0)), Size2D(440, __vApart - 2));
-	static PropertyButton YearDiscovered	(Point2D(__eax, __eby + (__vApart * 1)), Size2D(440, __vApart - 2));
-	static PropertyButton DiscoveredBy		(Point2D(__eax, __eby + (__vApart * 2)), Size2D(440, __vApart - 2));
-	static PropertyButton ElectronConfig	(Point2D(__eax, __eby + (__vApart * 3)), Size2D(440, __vApart - 2), Screens::ViewAtomModel);
-	static PropertyButton AtomicWeight		(Point2D(__eax, __eby + (__vApart * 4)), Size2D(440, __vApart - 2));
-	static PropertyButton Density			(Point2D(__eax, __eby + (__vApart * 5)), Size2D(440, __vApart - 2));
-	static PropertyButton Phase				(Point2D(__eax, __eby + (__vApart * 6)), Size2D(440, __vApart - 2));
-	static PropertyButton MeltingPoint		(Point2D(__eax, __eby + (__vApart * 7)), Size2D(440, __vApart - 2));
-	static PropertyButton BoilingPoint		(Point2D(__eax, __eby + (__vApart * 8)), Size2D(440, __vApart - 2));
+	static PropertyButton AtomicRadius(Point2D(((getmaxx() / 3) * 1) - 110, __eby + (__vApart * 14) - 5), Size2D(100, __vApart));
+	static PropertyButton CovalentRadius(Point2D(((getmaxx() / 3) * 3) - 110, __eby + (__vApart * 14) - 5), Size2D(100, __vApart));
+	static PropertyButton VanderWaalsRadius(Point2D(((getmaxx() / 3) * 2) - 110, __eby + (__vApart * 14) - 5), Size2D(100, __vApart));
 
-	static PropertyButton AtomicRadius		(Point2D(((getmaxx() / 3) * 1) - 110, __eby + (__vApart * 14) - 5), Size2D(100 , __vApart));
-	static PropertyButton CovalentRadius	(Point2D(((getmaxx() / 3) * 3) - 110, __eby + (__vApart * 14) - 5), Size2D(100 , __vApart));
-	static PropertyButton VanderWaalsRadius	(Point2D(((getmaxx() / 3) * 2) - 110, __eby + (__vApart * 14) - 5), Size2D(100 , __vApart));
-
-	static PropertyButton OxidationStates	(Point2D(__eax, __eby + (__vApart * 16)), Size2D(440, __vApart - 2));
-	static PropertyButton HalfLife			(Point2D(__eax, __eby + (__vApart * 17)), Size2D(440, __vApart - 2));
-	static PropertyButton Lifetime			(Point2D(__eax, __eby + (__vApart * 18)), Size2D(440, __vApart - 2));
-	
-
-
+	static PropertyButton OxidationStates(Point2D(__eax, __eby + (__vApart * 16)), Size2D(440, __vApart - 2));
+	static PropertyButton HalfLife(Point2D(__eax, __eby + (__vApart * 17)), Size2D(440, __vApart - 2));
+	static PropertyButton Lifetime(Point2D(__eax, __eby + (__vApart * 18)), Size2D(440, __vApart - 2));
 
 	AtomicWeight.SetText(buff_eba);
 	AtomicWeight.Draw(false);
 
 	LatinName.SetText(strcmpi(element.LatinName, "") ? element.LatinName : NO_VALUE);
 	LatinName.Draw(false);
-	
-
 
 	if (element.YearDiscovered)
 		itoa(element.YearDiscovered, buff_eba, 10);
@@ -545,10 +476,8 @@ void Screens::ViewElement(ElementButton *sender)
 	YearDiscovered.SetText(buff_eba);
 	YearDiscovered.Draw(false);
 
-
 	DiscoveredBy.SetText(strcmpi(element.DiscoveredBy, "") ? element.DiscoveredBy : NO_VALUE);
 	DiscoveredBy.Draw(false);
-
 
 	strcpy(buff_ebx, "");
 	for (itr_1 = 0; itr_1 < (sizeof(element.ElectronShells) / sizeof(Shell)) && element.ElectronShells[itr_1].ElectronCount(); ++itr_1)
@@ -558,7 +487,6 @@ void Screens::ViewElement(ElementButton *sender)
 		*(buff_sk + 1) = '\0';
 		strcat(buff_ebx, buff_sk);
 
-		
 		itoa((int)element.ElectronShells[itr_1].ElectronCount(), buff_eba, 10);
 		strcat(buff_ebx, buff_eba);
 
@@ -566,7 +494,7 @@ void Screens::ViewElement(ElementButton *sender)
 	}
 
 	ElectronConfig.SetText(buff_ebx);
-	ElectronConfig.Draw(false);	
+	ElectronConfig.Draw(false);
 
 	if (element.Density)
 	{
@@ -579,18 +507,28 @@ void Screens::ViewElement(ElementButton *sender)
 	Density.SetText(buff_eba);
 	Density.Draw(false);
 
-
 	switch (element.Block())
 	{
-		case Orbital::s:	strcpy(buff_eba, "S");	break;
-		case Orbital::p:	strcpy(buff_eba, "P");	break;
-		case Orbital::d:	strcpy(buff_eba, "D");	break;
-		case Orbital::f:	strcpy(buff_eba, "F");	break;
-		case Orbital::g:	strcpy(buff_eba, "G");	break;
-		default:			strcpy(buff_eba, "");	break;
+	case Orbital::s:
+		strcpy(buff_eba, "S");
+		break;
+	case Orbital::p:
+		strcpy(buff_eba, "P");
+		break;
+	case Orbital::d:
+		strcpy(buff_eba, "D");
+		break;
+	case Orbital::f:
+		strcpy(buff_eba, "F");
+		break;
+	case Orbital::g:
+		strcpy(buff_eba, "G");
+		break;
+	default:
+		strcpy(buff_eba, "");
+		break;
 	}
 	outtextxy(560, 60, buff_eba);
-
 
 	strcpy(buff_eba, "[");
 	if (element.Group())
@@ -601,18 +539,27 @@ void Screens::ViewElement(ElementButton *sender)
 	strcat(buff_eba, ", ");
 	itoa((int)element.Period(), buff_ebx, 10);
 	strcat(buff_eba, buff_ebx);
-	strcat(buff_eba, "]");	
+	strcat(buff_eba, "]");
 	outtextxy(560, 60 + (__vApart * 3), buff_eba);
-
 
 	switch (element.Phase())
 	{
-		case AtomicProperties::Solid:	strcpy(buff_eba, "Solid");	setcolor(LIGHTGREEN);	break;
-		case AtomicProperties::Liquid:	strcpy(buff_eba, "Liquid");	setcolor(BLUE);			break;
-		case AtomicProperties::Gas:		strcpy(buff_eba, "Gas");							break;
-		default:						strcpy(buff_eba, NO_VALUE);							break;
+	case AtomicProperties::Solid:
+		strcpy(buff_eba, "Solid");
+		setcolor(LIGHTGREEN);
+		break;
+	case AtomicProperties::Liquid:
+		strcpy(buff_eba, "Liquid");
+		setcolor(BLUE);
+		break;
+	case AtomicProperties::Gas:
+		strcpy(buff_eba, "Gas");
+		break;
+	default:
+		strcpy(buff_eba, NO_VALUE);
+		break;
 	}
-	
+
 	Phase.SetText(buff_eba);
 	Phase.Draw(false);
 
@@ -630,8 +577,6 @@ void Screens::ViewElement(ElementButton *sender)
 	itoa((int)element.NeutronCount, buff_eba, 10);
 	outtextxy(((getmaxx() / 3) * 3) - 110, __eby + (__vApart * 11) - 5, buff_eba);
 
-	
-
 	if (element.AtomicRadius)
 	{
 		gcvt(element.AtomicRadius, 5, buff_eba);
@@ -642,7 +587,6 @@ void Screens::ViewElement(ElementButton *sender)
 
 	AtomicRadius.SetText(buff_eba);
 	AtomicRadius.Draw(false);
-
 
 	if (element.CovalentRadius)
 	{
@@ -655,7 +599,6 @@ void Screens::ViewElement(ElementButton *sender)
 	CovalentRadius.SetText(buff_eba);
 	CovalentRadius.Draw(false);
 
-
 	if (element.VanderWaalsRadius)
 	{
 		gcvt(element.VanderWaalsRadius, 5, buff_eba);
@@ -667,9 +610,8 @@ void Screens::ViewElement(ElementButton *sender)
 	VanderWaalsRadius.SetText(buff_eba);
 	VanderWaalsRadius.Draw(false);
 
-
 	strcpy(buff_eba, "");
-	
+
 	if ((element.mem_oxiphase & n1) == n1)
 		strcat(buff_eba, "-1 ");
 	if ((element.mem_oxiphase & n2) == n2)
@@ -702,7 +644,6 @@ void Screens::ViewElement(ElementButton *sender)
 	OxidationStates.SetText(strcmpi(buff_eba, "") ? buff_eba : NO_VALUE);
 	OxidationStates.Draw(false);
 
-
 	if (element.MeltingPoint.GetValue(Temperature::Kelvin))
 	{
 		gcvt(element.MeltingPoint.GetValue(Temperature::Kelvin), 5, buff_eba);
@@ -710,10 +651,9 @@ void Screens::ViewElement(ElementButton *sender)
 	}
 	else
 		strcpy(buff_eba, NO_VALUE);
-	
+
 	MeltingPoint.SetText(buff_eba);
 	MeltingPoint.Draw(false);
-
 
 	if (element.BoilingPoint.GetValue(Temperature::Kelvin))
 	{
@@ -722,40 +662,70 @@ void Screens::ViewElement(ElementButton *sender)
 	}
 	else
 		strcpy(buff_eba, NO_VALUE);
-	
+
 	BoilingPoint.SetText(buff_eba);
 	BoilingPoint.Draw(false);
-
 
 	if (element.Radioactive())
 	{
 		setcolor(LIGHTRED);
 
-
 		gcvt(element.HalfLife.Value, 5, buff_eba);
 		switch (element.HalfLife.Unit)
 		{
-			case Duration::Days:			strcat(buff_eba, " days");			break;
-			case Duration::Hours:			strcat(buff_eba, " hours");			break;
-			case Duration::Years:			strcat(buff_eba, " years");			break;
-			case Duration::Seconds:			strcat(buff_eba, " seconds");			break;
-			case Duration::Nanoseconds:		strcat(buff_eba, " nanoseconds");		break;
-			case Duration::Microseconds:	strcat(buff_eba, " microseconds");	break;
-			case Duration::Milliseconds:	strcat(buff_eba, " milliseconds");	break;
-			case Duration::Minutes:			strcat(buff_eba, " minutes");			break;
+		case Duration::Days:
+			strcat(buff_eba, " days");
+			break;
+		case Duration::Hours:
+			strcat(buff_eba, " hours");
+			break;
+		case Duration::Years:
+			strcat(buff_eba, " years");
+			break;
+		case Duration::Seconds:
+			strcat(buff_eba, " seconds");
+			break;
+		case Duration::Nanoseconds:
+			strcat(buff_eba, " nanoseconds");
+			break;
+		case Duration::Microseconds:
+			strcat(buff_eba, " microseconds");
+			break;
+		case Duration::Milliseconds:
+			strcat(buff_eba, " milliseconds");
+			break;
+		case Duration::Minutes:
+			strcat(buff_eba, " minutes");
+			break;
 		}
 
 		gcvt(element.Lifetime.Value, 5, buff_ebx);
 		switch (element.Lifetime.Unit)
 		{
-			case Duration::Days:			strcat(buff_ebx, " days");			break;
-			case Duration::Hours:			strcat(buff_ebx, " hours");			break;
-			case Duration::Years:			strcat(buff_ebx, " years");			break;
-			case Duration::Seconds:			strcat(buff_ebx, " seconds");		break;
-			case Duration::Nanoseconds:		strcat(buff_ebx, " nanoseconds");	break;
-			case Duration::Microseconds:	strcat(buff_ebx, " microseconds");	break;
-			case Duration::Milliseconds:	strcat(buff_ebx, " milliseconds");	break;
-			case Duration::Minutes:			strcat(buff_ebx, " minutes");		break;
+		case Duration::Days:
+			strcat(buff_ebx, " days");
+			break;
+		case Duration::Hours:
+			strcat(buff_ebx, " hours");
+			break;
+		case Duration::Years:
+			strcat(buff_ebx, " years");
+			break;
+		case Duration::Seconds:
+			strcat(buff_ebx, " seconds");
+			break;
+		case Duration::Nanoseconds:
+			strcat(buff_ebx, " nanoseconds");
+			break;
+		case Duration::Microseconds:
+			strcat(buff_ebx, " microseconds");
+			break;
+		case Duration::Milliseconds:
+			strcat(buff_ebx, " milliseconds");
+			break;
+		case Duration::Minutes:
+			strcat(buff_ebx, " minutes");
+			break;
 		}
 
 		if (element.HalfLife.Unit == Duration::Infinite)
@@ -763,7 +733,6 @@ void Screens::ViewElement(ElementButton *sender)
 
 		if (element.Lifetime.Unit == Duration::Infinite)
 			strcpy(buff_ebx, "Infinite");
-
 	}
 	else
 	{
@@ -776,43 +745,35 @@ void Screens::ViewElement(ElementButton *sender)
 
 	Lifetime.SetText(buff_ebx);
 	Lifetime.Draw(false);
-	
-	
+
 	Mouse::Show();
 
 	while (1)
 	{
 		Mouse::Refresh();
 
-		if 
-		(
-			ExitButton.MouseClicked() 			|| 
-			BackButton.MouseClicked() 			|| 
-			CATFilterButton.MouseClicked() 		|| 
-			AtomicWeight.MouseClicked() 		||
-			LatinName.MouseClicked()			||
-			YearDiscovered.MouseClicked()		||
-			DiscoveredBy.MouseClicked()			||
-			ElectronConfig.MouseClicked()		||
-			Density.MouseClicked()				||
-			Phase.MouseClicked()				||
-			MeltingPoint.MouseClicked()			||
-			BoilingPoint.MouseClicked()			||
-			AtomicRadius.MouseClicked()			||
-			CovalentRadius.MouseClicked()		||
-			VanderWaalsRadius.MouseClicked()	||
-			OxidationStates.MouseClicked()		||
-			HalfLife.MouseClicked()				||
-			Lifetime.MouseClicked()
-		);
-
+		if (
+			ExitButton.MouseClicked() ||
+			BackButton.MouseClicked() ||
+			CATFilterButton.MouseClicked() ||
+			AtomicWeight.MouseClicked() ||
+			LatinName.MouseClicked() ||
+			YearDiscovered.MouseClicked() ||
+			DiscoveredBy.MouseClicked() ||
+			ElectronConfig.MouseClicked() ||
+			Density.MouseClicked() ||
+			Phase.MouseClicked() ||
+			MeltingPoint.MouseClicked() ||
+			BoilingPoint.MouseClicked() ||
+			AtomicRadius.MouseClicked() ||
+			CovalentRadius.MouseClicked() ||
+			VanderWaalsRadius.MouseClicked() ||
+			OxidationStates.MouseClicked() ||
+			HalfLife.MouseClicked() ||
+			Lifetime.MouseClicked())
+			;
 	}
 }
-
-
-
-
-
 
 void Screens::ViewAtomModel()
 {
@@ -829,7 +790,7 @@ void Screens::ViewAtomModel()
 	{
 
 		rotation_buff += 0.01745;
-		
+
 		if (rotation_buff >= 6.28318)
 			rotation_buff = 0;
 
@@ -841,18 +802,10 @@ void Screens::ViewAtomModel()
 		}
 		delay(10);
 	}
-	
+
 	Mouse::Show();
 	Screens::Table();
-
 }
-
-
-
-
-
-
-
 
 // void Screens::ViewAtomModel()
 // {
@@ -870,7 +823,7 @@ void Screens::ViewAtomModel()
 // 		Mouse::Refresh();
 
 // 		rotation_buff += 0.01745;
-		
+
 // 		if (rotation_buff >= 6.28318)
 // 			rotation_buff = 0;
 
@@ -888,11 +841,6 @@ void Screens::ViewAtomModel()
 // 	Screens::Table();
 
 // }
-
-
-
-
-
 
 void Screens::About()
 {
@@ -921,9 +869,6 @@ void Screens::About()
 	}
 }
 
-
-
-
 void Screens::ResetElements()
 {
 	DrawDefaultLayout(BLACK);
@@ -931,7 +876,7 @@ void Screens::ResetElements()
 	BackButton.ClickEvent = Home;
 
 	static Button ConfirmButton = Button(Point2D((getmaxx() / 2) + 55, 300), Size2D(100, 25), "CONFIRM", RED, RED, LIGHTRED, LIGHTRED, WHITE, WHITE, Operation_ResetElements);
-	static Button CancelButton  = Button(Point2D((getmaxx() / 2) - 55, 300), Size2D(100, 25), "CANCEL", LIGHTGREEN, GREEN, GREEN, GREEN, WHITE, WHITE, Home);
+	static Button CancelButton = Button(Point2D((getmaxx() / 2) - 55, 300), Size2D(100, 25), "CANCEL", LIGHTGREEN, GREEN, GREEN, GREEN, WHITE, WHITE, Home);
 
 	Mouse::Hide();
 
@@ -942,8 +887,6 @@ void Screens::ResetElements()
 	settextstyle(6, HORIZ_DIR, 1);
 	outtextxy(getmaxx() / 2, (getmaxy() / 2), "Are you sure you want to reset all elements?");
 
-	
-	
 	ConfirmButton.Draw(false);
 	CancelButton.Draw(false);
 
@@ -952,40 +895,35 @@ void Screens::ResetElements()
 	while (1)
 	{
 		Mouse::Refresh();
-		
+
 		if (ExitButton.MouseClicked() || BackButton.MouseClicked() || ConfirmButton.MouseClicked() || CancelButton.MouseClicked())
 			break;
 	}
-
 }
-
-
-
-
-
 
 void DisplayElement(byte z)
 {
 	Element me = Files::GetElement(z);
-	cout << "\n" << me.X << "  " << me.Name << " [ Z: " << (int)me.Z() << " | A: " << (int)me.A() << " ]\n";
+	cout << "\n"
+		 << me.X << "  " << me.Name << " [ Z: " << (int)me.Z() << " | A: " << (int)me.A() << " ]\n";
 	cout << "\nLatinName: " << me.LatinName << "\nDiscoveredBy: " << me.DiscoveredBy << "\nYearDiscovered: " << me.YearDiscovered;
 	cout << "\n\nAtomicWeight: " << me.AtomicWeight << " g/mol   Density: " << me.Density << " g/(cm^3)    Phase: " << (int)me.Phase();
 	cout << "\nAtomicRadius: " << me.AtomicRadius << " pm    CovalentRadius: " << me.CovalentRadius << " pm    Van der Waals Radius: " << me.VanderWaalsRadius << " pm";
 	cout << "\nMeltingPoint: " << me.MeltingPoint.GetValue(Temperature::Kelvin) << "K   Boiling Point: " << me.BoilingPoint.GetValue(Temperature::Kelvin) << "K";
 	cout << "\nRadioactive: " << (int)me.Radioactive() << "  HalfLife: " << me.HalfLife.Value << "  LifeTime: " << me.Lifetime.Value;
-	cout << "\nmem_oxiphase:  "; cout << (unsigned int)me.mem_oxiphase;
+	cout << "\nmem_oxiphase:  ";
+	cout << (unsigned int)me.mem_oxiphase;
 	cout << "\n\nDerived Datas:\nGroup: " << (int)me.Group() << "   Period: " << (int)me.Period();
 	cout << "\nNoble Gas: " << (int)me.IsStable();
 	cout << "\nBlock: " << (int)me.Block();
-
 }
 
-void InitializeData() {
-	
+void InitializeData()
+{
+
 	char input;
 
 	cout << "\nInitializing global variables...";
-
 
 	if (!Files::CheckFiles())
 	{
@@ -1011,7 +949,7 @@ void InitializeData() {
 
 	cout << "\nReading all elements...";
 	byte a = Files::ElementCount();
-	
+
 	fstream f;
 	f.open(Files::path, ios::in | ios::binary);
 
@@ -1021,31 +959,32 @@ void InitializeData() {
 	//f.read((char*)&FileSignature, sizeof(DigitalSignature));
 
 	f.seekg(0);
-	
+
 	Element *cache = new Element;
 
-	for (byte itr_1 = 0; (itr_1 < a) && (f.read((char*)cache, sizeof(Element))); ++itr_1)
-	{	
+	for (byte itr_1 = 0; (itr_1 < a) && (f.read((char *)cache, sizeof(Element))); ++itr_1)
+	{
 		ElementButtons[itr_1] = ElementButton(cache);
 		clrscr();
 		cout << "\n\nCaching necessary informations into buffer...\n";
 		for (byte itr_2 = 0; itr_2 < (int)((float)itr_1 * 0.65); itr_2++)
 			cout << char(178);
-		cout << char(177) << char(177) << char (176) << char(176);
-		cout << "\n\n\n $ Processing Element -> " << (int)cache -> Z() << " " << cache -> X << " " << " [A: " << (int)cache -> A() << "] " << cache -> Name;
-		cout << "\nAuto Electron Fill >  " << (int)cache -> ElectronCount() << " electron(s) pushed into appropriate theoretical orbit\n[Group, Period] = [" << (int)cache -> Group() << " , " << (int)cache -> Period() ;
-		cout << "]\n\nExtracting... -> mem_oxi_phase (decoding: 0x" << hex << cache -> mem_oxiphase << ")   2 B -> 66 B" << dec;
+		cout << char(177) << char(177) << char(176) << char(176);
+		cout << "\n\n\n $ Processing Element -> " << (int)cache->Z() << " " << cache->X << " "
+			 << " [A: " << (int)cache->A() << "] " << cache->Name;
+		cout << "\nAuto Electron Fill >  " << (int)cache->ElectronCount() << " electron(s) pushed into appropriate theoretical orbit\n[Group, Period] = [" << (int)cache->Group() << " , " << (int)cache->Period();
+		cout << "]\n\nExtracting... -> mem_oxi_phase (decoding: 0x" << hex << cache->mem_oxiphase << ")   2 B -> 66 B" << dec;
 		cout << "\nSize: " << sizeof(*cache) << " bytes\n";
-		if (cache -> Radioactive())
+		if (cache->Radioactive())
 			cout << "$ auto - RADIOACTIVE ELEMENT !\n";
-
 	}
 
 	delete cache;
 
 	f.close();
 
-	cout << "\n" << (int)a << " Elements cached into memory.";
+	cout << "\n"
+		 << (int)a << " Elements cached into memory.";
 	cout << "\n\nCached: " << sizeof(ElementButton) * (int)a << "  bytes  out of " << sizeof(Element) * (int)a << " bytes";
 	cout << "\n $ PERIODIC_TABLE_INSTANCE_1 > ";
 
@@ -1063,33 +1002,53 @@ void Operation__RemoveElements()
 
 void Operation__AddElements()
 {
-	int z, a; char symbol[4] = "";
-	cout << "Enter Atomic Number (Z): "; cin >> z;
-	cout << "Enter Symbol        (X): "; gets(symbol);
-	cout << "Enter Atomic Weight (A): "; cin >> a;
+	int z, a;
+	char symbol[4] = "";
+	cout << "Enter Atomic Number (Z): ";
+	cin >> z;
+	cout << "Enter Symbol        (X): ";
+	gets(symbol);
+	cout << "Enter Atomic Weight (A): ";
+	cin >> a;
 
-	Element newElement  = Element(symbol, z, a);
-	
-	cout << "\nEnter Name: "; gets(newElement.Name);
-	cout << "Enter LatinName: "; gets(newElement.LatinName);
-	cout << "Enter DiscoveredBy: "; gets(newElement.DiscoveredBy);
-	cout << "Enter Year Discovered: "; cin >> newElement.YearDiscovered;
+	Element newElement = Element(symbol, z, a);
+
+	cout << "\nEnter Name: ";
+	gets(newElement.Name);
+	cout << "Enter LatinName: ";
+	gets(newElement.LatinName);
+	cout << "Enter DiscoveredBy: ";
+	gets(newElement.DiscoveredBy);
+	cout << "Enter Year Discovered: ";
+	cin >> newElement.YearDiscovered;
 	cout << "\nAtomic Properties:\n";
-	cout << "Atomic Weight (g/mol): "; cin >> newElement.AtomicWeight;
-	cout << "Density (g/cm^3): "; cin >> newElement.Density;
-	cout << "Atomic Radius (pm): "; cin >> newElement.AtomicRadius;
-	cout << "CovalentRadius (pm): "; cin >> newElement.CovalentRadius;
-	cout << "VanderWaalsRadius (pm): "; cin >> newElement.VanderWaalsRadius;
-	cout << "mem_oxiphase: "; cin >> (unsigned int) newElement.mem_oxiphase;
+	cout << "Atomic Weight (g/mol): ";
+	cin >> newElement.AtomicWeight;
+	cout << "Density (g/cm^3): ";
+	cin >> newElement.Density;
+	cout << "Atomic Radius (pm): ";
+	cin >> newElement.AtomicRadius;
+	cout << "CovalentRadius (pm): ";
+	cin >> newElement.CovalentRadius;
+	cout << "VanderWaalsRadius (pm): ";
+	cin >> newElement.VanderWaalsRadius;
+	cout << "mem_oxiphase: ";
+	cin >> (unsigned int)newElement.mem_oxiphase;
 	float buff;
-	cout << "Melting Point (K): "; cin >> buff; newElement.MeltingPoint = Temperature(buff, Temperature::Kelvin);
-	cout << "Boiling Point (K): "; cin >> buff; newElement.BoilingPoint = Temperature(buff, Temperature::Kelvin);
+	cout << "Melting Point (K): ";
+	cin >> buff;
+	newElement.MeltingPoint = Temperature(buff, Temperature::Kelvin);
+	cout << "Boiling Point (K): ";
+	cin >> buff;
+	newElement.BoilingPoint = Temperature(buff, Temperature::Kelvin);
 	cout << "\nNuclear Properties:\n";
 
 	float temp;
-	cout << "HalfLife = (years) "; cin >> temp;
+	cout << "HalfLife = (years) ";
+	cin >> temp;
 	newElement.HalfLife.Set(temp, Duration::Years);
-	cout << "LifeTime = (years) "; cin >> temp;
+	cout << "LifeTime = (years) ";
+	cin >> temp;
 	newElement.Lifetime.Set(temp, Duration::Years);
 
 	cout << "\n\nAll Properties entered. Creating element...";
@@ -1102,20 +1061,25 @@ void Operation__AddElements()
 
 void Operation_QuickAddElement()
 {
-	int z = 127, n = 127; char symbol[4] = "NA";
+	int z = 127, n = 127;
+	char symbol[4] = "NA";
 
 	while (1)
 	{
 		clrscr();
-		cout << "Z (Enter 0 to stop quick entry): "; cin >> z;
+		cout << "Z (Enter 0 to stop quick entry): ";
+		cin >> z;
 
 		if (z == 0)
 			return;
 
-		cout << "#Neutrons: "; cin >> n;
-		cout << "X: "; gets(symbol);
+		cout << "#Neutrons: ";
+		cin >> n;
+		cout << "X: ";
+		gets(symbol);
 		Element element = Element(symbol, z, z + n);
-		cout << "Enter Name: "; gets(element.Name);
+		cout << "Enter Name: ";
+		gets(element.Name);
 
 		if (!Files::AddElement(element))
 		{
@@ -1199,7 +1163,7 @@ void PerformAdvancedStartup()
 			// 	Files::AddElement(element);
 			// }
 		}
-		
+
 		else if (choice == 9)
 			Files::ResetFactoryDefaults();
 
@@ -1216,8 +1180,7 @@ void PerformAdvancedStartup()
 
 class PeriodicTable
 {
-	public:
-
+public:
 	PeriodicTable()
 	{
 		PerformAdvancedStartup();
@@ -1243,5 +1206,5 @@ void Close()
 
 void ShowElement(char *sender)
 {
-	Screens::ViewElement((ElementButton*)sender);
+	Screens::ViewElement((ElementButton *)sender);
 }
