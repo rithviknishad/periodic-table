@@ -14,28 +14,23 @@ Last Updated:	October 6, 2018
 
 union REGS i, o;
 
-
 class Mouse
 {
-	public:
-
-    static byte Button;
+public:
+	static byte Button;
 	static int X, Y;
 
 	static int Initialize();
 
 	static void Show();
-    static void Hide();
-	
+	static void Hide();
+
 	static byte Refresh();
-
 };
-
 
 byte Mouse::Button = 0;
 int Mouse::X = 0;
 int Mouse::Y = 0;
-
 
 int Mouse::Initialize()
 {
@@ -44,20 +39,17 @@ int Mouse::Initialize()
 	return (o.x.ax);
 }
 
-
 void Mouse::Show()
 {
 	i.x.ax = 1;
 	int86(0x33, &i, &o);
 }
 
-
 void Mouse::Hide()
 {
-    i.x.ax = 2;
-    int86(0x33, &i, &o);
+	i.x.ax = 2;
+	int86(0x33, &i, &o);
 }
-
 
 byte Mouse::Refresh()
 {
@@ -68,6 +60,5 @@ byte Mouse::Refresh()
 	Y = o.x.dx;
 	return (Button = (byte)o.x.bx);
 }
-
 
 #endif

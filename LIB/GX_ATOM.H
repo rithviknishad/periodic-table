@@ -17,8 +17,7 @@ Last Updated:	October 16, 2018
 class AtomGraphics
 {
 
-	public:
-
+public:
 	static Point2D center();
 
 	static unsigned int GetRadiusOfShell(byte shell);
@@ -28,9 +27,7 @@ class AtomGraphics
 	static void DrawOrbit(byte color, byte shell);
 
 	static void DrawElectrons(byte fillcolor, byte bordercolor, byte shell, byte count, float radian_offset);
-
 };
-
 
 Point2D AtomGraphics::center()
 {
@@ -42,15 +39,14 @@ unsigned int AtomGraphics::GetRadiusOfShell(byte shell)
 	return (shell * 26) + 16;
 }
 
-void AtomGraphics::DrawNucleus (byte color)
+void AtomGraphics::DrawNucleus(byte color)
 {
 	GraphicsEngine::FilledCircle(center(), 8, color);
 }
 
-
 void AtomGraphics::DrawOrbit(byte color, byte shell)
 {
-    GraphicsEngine::Circle(center(), GetRadiusOfShell(shell), color);
+	GraphicsEngine::Circle(center(), GetRadiusOfShell(shell), color);
 }
 
 void AtomGraphics::DrawElectrons(byte fillcolor, byte bordercolor, byte shell, byte count, float radian_offset = PI / 2)

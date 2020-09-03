@@ -16,37 +16,34 @@ class Temperature
 {
 
 protected:
-
 	float kelvin;
 
 public:
-
 	enum Units
-    { 
-        Kelvin,
-        Celsius,
-        Fahrenheit
-    };
+	{
+		Kelvin,
+		Celsius,
+		Fahrenheit
+	};
 
 	Temperature()
-    { 
-        SetValue(0, Kelvin);
-    }
+	{
+		SetValue(0, Kelvin);
+	}
 
 	Temperature(float value, Units unit)
-    {
-        SetValue(value, unit);
-    }
+	{
+		SetValue(value, unit);
+	}
 
 	Temperature(const Temperature &temperature)
-    { 
-        kelvin = temperature.kelvin;
-    }
+	{
+		kelvin = temperature.kelvin;
+	}
 
 	float SetValue(float value, Units unit);
 
 	float GetValue(Units unit);
-
 };
 
 float Temperature::SetValue(float value, Temperature::Units unit)
@@ -86,49 +83,46 @@ float Temperature::GetValue(Temperature::Units unit)
 	return 0;
 }
 
-
 class Duration
 {
 
-	public:	
-
+public:
 	enum Units
-    { 
-        Nanoseconds = 0, 
-        Microseconds, 
-        Milliseconds, 
-        Seconds, 
-        Minutes, 
-        Hours, 
-        Days, 
-        Years, 
-        Infinite 
-    };
+	{
+		Nanoseconds = 0,
+		Microseconds,
+		Milliseconds,
+		Seconds,
+		Minutes,
+		Hours,
+		Days,
+		Years,
+		Infinite
+	};
 
-    float Value;
-    byte Unit;
+	float Value;
+	byte Unit;
 
 	Duration()
-    {
-        Set(0, Seconds);
-    }
+	{
+		Set(0, Seconds);
+	}
 
 	Duration(float value, Units unit)
-    {
-        Set(value, unit);
-    }
+	{
+		Set(value, unit);
+	}
 
 	Duration(Units unit)
-    {
-        Set	(0, unit);
-    }
+	{
+		Set(0, unit);
+	}
 
-	void Set (float value, Units unit)
+	void Set(float value, Units unit)
 	{
 		Value = value;
 		Unit = unit;
 	}
-
 };
 
 #endif

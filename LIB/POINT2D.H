@@ -13,7 +13,6 @@ Last Updated:	October 6, 2018
 class Point2D
 {
 public:
-
 	int X;
 	int Y;
 
@@ -37,7 +36,6 @@ public:
 	{
 		SetPoint(point2D.X, point2D.Y);
 	}
-	
 };
 
 #endif

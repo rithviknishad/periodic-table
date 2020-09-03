@@ -20,18 +20,17 @@ Last Updated:	October 14, 2018
 #if !defined(__ELEM_BTN_H)
 #define __ELEM_BTN_H
 
-extern void ShowElement(char*);
+extern void ShowElement(char *);
 
 class ElementButton
 {
 
 	bool PreviousMouseHoverState;
 
-	public:
-
+public:
 	byte Z;
 	char X[4];
-    char _z[4];
+	char _z[4];
 
 	byte BorderColor;
 
@@ -101,40 +100,62 @@ class ElementButton
 
 		if (Mouse::Button && MouseHover())
 		{
-			ShowElement((char*)this);
+			ShowElement((char *)this);
 			return true;
 		}
 		return false;
 	}
-
 };
 
 void ElementButton::Initialize(Element *element)
 {
-	Z = element -> Z(); // commenting this code makes app highly unstable
-	strcpy(X, element -> X);
+	Z = element->Z(); // commenting this code makes app highly unstable
+	strcpy(X, element->X);
 	itoa(Z, _z, 10);
 
-	Midpoint = ((element -> Group()) ? Point2D((element -> Group() * 34) - 3, (element -> Period() * 43) + 30) : Point2D(((Z - (element -> Period() == 6 ? 54 : 86)) * 34) - 3, ((element -> Period() + 3) * 43) + 5));
+	Midpoint = ((element->Group()) ? Point2D((element->Group() * 34) - 3, (element->Period() * 43) + 30) : Point2D(((Z - (element->Period() == 6 ? 54 : 86)) * 34) - 3, ((element->Period() + 3) * 43) + 5));
 
-	switch (element -> Category)
+	switch (element->Category)
 	{
-		case Element::Other_NonMetals:		BorderColor = LIGHTGREEN;	break;
-		case Element::NobleGases:			BorderColor = MAGENTA;		break;
-		case Element::AlkaliMetals:			BorderColor = RED;			break;
-		case Element::AlkalineEarthMetals:	BorderColor = LIGHTBLUE;	break;
-		case Element::TransitionMetals:		BorderColor = CYAN;			break;
-		case Element::PostTransitionMetals:	BorderColor = BLUE;			break;
-		case Element::Metalloids:			BorderColor = YELLOW;		break;
-		case Element::Halogens:				BorderColor = GREEN;		break;
-		case Element::Lanthanoids:			BorderColor = LIGHTRED;		break;
-		case Element::Actinoids:			BorderColor = BROWN;		break;
-		case Element::SuperActinoid:		BorderColor = WHITE;		break;
-		default:							BorderColor = WHITE;		break;
+	case Element::Other_NonMetals:
+		BorderColor = LIGHTGREEN;
+		break;
+	case Element::NobleGases:
+		BorderColor = MAGENTA;
+		break;
+	case Element::AlkaliMetals:
+		BorderColor = RED;
+		break;
+	case Element::AlkalineEarthMetals:
+		BorderColor = LIGHTBLUE;
+		break;
+	case Element::TransitionMetals:
+		BorderColor = CYAN;
+		break;
+	case Element::PostTransitionMetals:
+		BorderColor = BLUE;
+		break;
+	case Element::Metalloids:
+		BorderColor = YELLOW;
+		break;
+	case Element::Halogens:
+		BorderColor = GREEN;
+		break;
+	case Element::Lanthanoids:
+		BorderColor = LIGHTRED;
+		break;
+	case Element::Actinoids:
+		BorderColor = BROWN;
+		break;
+	case Element::SuperActinoid:
+		BorderColor = WHITE;
+		break;
+	default:
+		BorderColor = WHITE;
+		break;
 	}
 
 	PreviousMouseHoverState = false;
-
 }
 
 #endif

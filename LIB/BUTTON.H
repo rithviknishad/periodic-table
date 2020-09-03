@@ -17,9 +17,7 @@ Last Updated:	October 18, 2018
 #if !defined(__BUTTON_H)
 #define __BUTTON_H
 
-
-void NotImplementedException() { }
-
+void NotImplementedException() {}
 
 class Button
 {
@@ -33,8 +31,7 @@ class Button
 		PreviousMouseHoverState = MouseHover();
 	}
 
-	public:
-
+public:
 	char Text[32];
 
 	Point2D A, B;
@@ -50,8 +47,7 @@ class Button
 
 	void (*ClickEvent)();
 
-	
-	char* SetText(const char text[]);
+	char *SetText(const char text[]);
 
 	void SetBounds(Point2D &a, Point2D &b)
 	{
@@ -67,13 +63,11 @@ class Button
 		B = Point2D(a.X + size.Width, a.Y + size.Height);
 	}
 
-	void SetPositionAndSize(Point2D &midpoint, Size2D &size) 
+	void SetPositionAndSize(Point2D &midpoint, Size2D &size)
 	{
 		A = Point2D(midpoint.X - (size.Width / 2), midpoint.Y - (size.Height / 2));
 		B = Point2D(midpoint.X + (size.Width / 2), midpoint.Y + (size.Height / 2));
 	}
-
-
 
 	bool MouseHover()
 	{
@@ -94,7 +88,7 @@ class Button
 		return false;
 	}
 
-	void Draw (bool AutoMouseHide = true, byte TextJustify = CENTER_TEXT)
+	void Draw(bool AutoMouseHide = true, byte TextJustify = CENTER_TEXT)
 	{
 		if (AutoMouseHide)
 			Mouse::Hide();
@@ -103,7 +97,7 @@ class Button
 
 		settextjustify(TextJustify, CENTER_TEXT);
 		settextstyle(0, HORIZ_DIR, 1);
-		
+
 		setcolor(MouseHover() ? ForeColor_Hovered : ForeColor);
 		outtextxy((B.X + A.X) / 2, (B.Y + A.Y) / 2, Text);
 
@@ -130,9 +124,9 @@ class Button
 	Button(const char text[], byte backcolor, byte forecolor)
 	{
 		Initialize();
-		
+
 		SetText(text);
-		
+
 		BackColor = backcolor;
 		BorderColor = BackColor;
 		ForeColor = forecolor;
@@ -140,7 +134,6 @@ class Button
 		BackColor_Hovered = BackColor;
 		BorderColor_Hovered = BorderColor;
 		ForeColor_Hovered = ForeColor;
-
 	}
 
 	Button(Point2D midpoint, Size2D size, const char text[], byte backcolor, byte backcolor_hovered, byte bordercolor, byte bordercolor_hovered, byte forecolor, byte forecolor_hovered, void (*clickevent)() = NotImplementedException)
@@ -166,22 +159,17 @@ class Button
 	{
 		// if (Text != NULL)
 		// 	delete Text;
-			
+
 		// if (Text_GC != NULL)
 		// 	delete Text_GC;
 	}
-
 };
 
-char* Button::SetText(const char text[]) 
+char *Button::SetText(const char text[])
 {
 	strcpy(Text, text);
 	return Text;
 }
-
-
-
-
 
 class PropertyButton
 {
@@ -196,8 +184,7 @@ class PropertyButton
 		PreviousMouseHoverState = MouseHover();
 	}
 
-	public:
-
+public:
 	char Text[64];
 
 	Point2D A, B;
@@ -206,7 +193,7 @@ class PropertyButton
 
 	void (*ClickEvent)();
 
-	char* SetText(const char text[]);
+	char *SetText(const char text[]);
 
 	void SetPositionAndSize(Point2D &centYAlginedCoord, Size2D &size)
 	{
@@ -241,7 +228,7 @@ class PropertyButton
 		return false;
 	}
 
-	void Draw (bool AutoMouseHide = true)
+	void Draw(bool AutoMouseHide = true)
 	{
 		if (AutoMouseHide)
 			Mouse::Hide();
@@ -250,7 +237,7 @@ class PropertyButton
 
 		settextjustify(LEFT_TEXT, CENTER_TEXT);
 		settextstyle(0, HORIZ_DIR, 1);
-		
+
 		setcolor(MouseHover() ? LIGHTGRAY : WHITE);
 		outtextxy(A.X + 4, (B.Y + A.Y) / 2, Text);
 
@@ -289,18 +276,17 @@ class PropertyButton
 	{
 		// if (Text != NULL)
 		// 	delete Text;
-			
+
 		// if (Text_GC != NULL)
 		// 	delete[] Text_GC;
 	}
-
 };
 
-char* PropertyButton::SetText(const char text[]) 
+char *PropertyButton::SetText(const char text[])
 {
 
 	strcpy(Text, text);
-	
+
 	// if (Text != NULL)
 	// 	delete Text;
 
